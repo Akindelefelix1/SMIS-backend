@@ -7,29 +7,33 @@ services:
     healthCheckPath: /
     envVars:
       - key: DB_HOST
-        value: your-db-host
+        sync: false
+      - key: DB_PORT
+        value: "3306"
       - key: DB_NAME
-        value: smis
+        sync: false
       - key: DB_USER
-        value: your-db-user
+        sync: false
       - key: DB_PASS
-        value: your-db-password
+        sync: false
       - key: DB_CHARSET
         value: utf8mb4
 
   - type: cron
     name: smis-migrate
     runtime: docker
-    schedule: '0 0 1 1 *'
+    schedule: '0 2 * * *'
     dockerCommand: php /var/www/html/scripts/migrate.php
     envVars:
       - key: DB_HOST
-        value: your-db-host
+        sync: false
+      - key: DB_PORT
+        value: "3306"
       - key: DB_NAME
-        value: smis
+        sync: false
       - key: DB_USER
-        value: your-db-user
+        sync: false
       - key: DB_PASS
-        value: your-db-password
+        sync: false
       - key: DB_CHARSET
         value: utf8mb4
