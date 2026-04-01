@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: smis-backend
+    runtime: docker
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: DB_HOST
+        value: your-db-host
+      - key: DB_NAME
+        value: smis
+      - key: DB_USER
+        value: your-db-user
+      - key: DB_PASS
+        value: your-db-password
+      - key: DB_CHARSET
+        value: utf8mb4
+
+  - type: cron
+    name: smis-migrate
+    runtime: docker
+    schedule: '0 0 1 1 *'
+    dockerCommand: php /var/www/html/scripts/migrate.php
+    envVars:
+      - key: DB_HOST
+        value: your-db-host
+      - key: DB_NAME
+        value: smis
+      - key: DB_USER
+        value: your-db-user
+      - key: DB_PASS
+        value: your-db-password
+      - key: DB_CHARSET
+        value: utf8mb4
